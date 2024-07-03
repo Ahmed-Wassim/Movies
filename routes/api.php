@@ -15,4 +15,6 @@ Route::prefix('dashboard')->group(function () {
         'admins' => AdminController::class,
         'users' => UserController::class,
     ]);
+    Route::post('admins/bulk-delete', [AdminController::class, 'bulkDelete']);
+    Route::post('users/bulk-delete', [UserController::class, 'bulkDelete']);
 });

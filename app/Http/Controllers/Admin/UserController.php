@@ -88,4 +88,24 @@ class UserController extends Controller
 
         return $this->okResponse($user);
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $userIds = $request->user_ids; // Replace with your array of user IDs
+
+        $users = User::whereIn('id', $userIds)->whereHas('roles', function ($query) {
+            $query->where('name', 'user');
+        })->get();
+
+        if ($users->isEmpty()) {
+            return $this->notFoundResponse('Users not found');
+        }
+
+        foreach ($users as $user) {
+            $user->removeRole('user');
+            $user->delete();
+        }
+
+        return $this->okResponse('Users removed successfully');
+    }
 }

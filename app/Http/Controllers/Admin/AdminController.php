@@ -91,4 +91,24 @@ class AdminController extends Controller
 
         return $this->okResponse($admin);
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $userIds = $request->user_ids; // Replace with your array of user IDs
+
+        $admins = User::whereIn('id', $userIds)->whereHas('roles', function ($query) {
+            $query->where('name', 'admin');
+        })->get();
+
+        if ($admins->isEmpty()) {
+            return $this->notFoundResponse('Admins not found');
+        }
+
+        foreach ($admins as $admin) {
+            $admin->removeRole('admin');
+            $admin->delete();
+        }
+
+        return $this->okResponse('Admins removed successfully');
+    }
 }
