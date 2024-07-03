@@ -11,6 +11,8 @@ Route::get('/user', function (Request $request) {
 
 
 Route::prefix('dashboard')->group(function () {
-    Route::apiResource('/admins', AdminController::class);
-    Route::apiResource('/users', UserController::class);
+    Route::apiResources([
+        'admins' => AdminController::class,
+        'users' => UserController::class,
+    ]);
 });

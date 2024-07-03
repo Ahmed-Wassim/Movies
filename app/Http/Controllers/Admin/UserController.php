@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    use ApiResponses;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return User::whereHas('roles', function ($query) {
+            $query->where('name', 'user');
+        })->with(['roles' => fn ($query) => $query->select('id', 'name')])->get();
     }
 
     /**
@@ -20,7 +25,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'email_verified_at' => now(),
+            'password' => bcrypt($request->password),
+        ]);
+
+        $user->assignRole('user');
+
+        return $this->createdResponse([$user, 'User created successfully']);
     }
 
     /**
@@ -28,15 +42,29 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::where('id', $id)->whereHas('roles', function ($query) {
+            $query->where('name', 'user');
+        })->with(['roles' => fn ($query) => $query->select('id', 'name')])->get();
+
+        if ($user->isEmpty()) {
+            return $this->notFoundResponse('User not found');
+        }
+
+        return $this->successResponse($user);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email ?? $user->email,
+        ]);
+
+        return $this->noContentResponse();
     }
 
     /**
@@ -44,6 +72,20 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::where('id', $id)->whereHas('roles', function ($query) {
+            $query->where('name', 'user');
+        })->first();
+
+
+        if (!$user) {
+            return $this->notFoundResponse('User not found');
+        }
+
+        // dd($admin);
+
+        $user->removeRole('admin');
+        $user->delete();
+
+        return $this->okResponse($user);
     }
 }
