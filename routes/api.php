@@ -19,7 +19,7 @@ Route::group([
 });
 
 
-Route::middleware('auth:api')->prefix('dashboard')->group(function () {
+Route::middleware(['auth:api', 'role:admin|super_admin'])->prefix('dashboard')->group(function () {
     Route::apiResources([
         'admins' => AdminController::class,
         'users' => UserController::class,
