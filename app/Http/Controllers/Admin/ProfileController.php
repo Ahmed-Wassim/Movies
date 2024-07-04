@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Rules\CheckOldPassword;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,6 +28,22 @@ class ProfileController extends Controller
             'image' => $request->has('updated_image') ? $request->updated_image : auth()->user()->image
         ]);
 
-        return $this->noContentResponse();
+        return $this->successResponse(['message' => 'Profile updated successfully']);
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => ['required', new CheckOldPassword],
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $request->merge(['password' => bcrypt($request->password)]);
+
+        auth()->user()->update([
+            'password' => $request->password,
+        ]);
+
+        return $this->successResponse(['message' => 'Password updated successfully']);
     }
 }

@@ -30,4 +30,5 @@ Route::middleware(['auth:api', 'role:admin|super_admin'])->prefix('dashboard')->
     Route::get('/settings', [SettingController::class, 'index']);
     Route::post('/settings', [SettingController::class, 'update']);
     Route::post('/profile', [ProfileController::class, 'update']);
+    Route::post('/profile/change-password', [ProfileController::class, 'changePassword']);
 });
