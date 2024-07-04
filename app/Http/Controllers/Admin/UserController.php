@@ -64,6 +64,10 @@ class UserController extends Controller
             'email' => $request->email ?? $user->email,
         ]);
 
+        if ($request->has('role')) {
+            $user->syncRoles($request->role);
+        }
+
         return $this->noContentResponse();
     }
 

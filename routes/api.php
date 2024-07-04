@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ProfileController;
 
 Route::group([
     'middleware' => 'api',
@@ -26,6 +27,7 @@ Route::middleware(['auth:api', 'role:admin|super_admin'])->prefix('dashboard')->
     ]);
     Route::post('admins/bulk-delete', [AdminController::class, 'bulkDelete']);
     Route::post('users/bulk-delete', [UserController::class, 'bulkDelete']);
-    Route::get('settings', [SettingController::class, 'index']);
-    Route::post('settings', [SettingController::class, 'update']);
+    Route::get('/settings', [SettingController::class, 'index']);
+    Route::post('/settings', [SettingController::class, 'update']);
+    Route::post('/profile', [ProfileController::class, 'update']);
 });
