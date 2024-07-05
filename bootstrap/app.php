@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\GetGenre;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Auth\AuthenticationException;
@@ -28,4 +29,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 401);
             }
         });
-    })->create();
+    })->withCommands([
+        GetGenre::class,
+    ])->create();
