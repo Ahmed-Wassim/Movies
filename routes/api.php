@@ -7,6 +7,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\ProfileController;
 
 Route::group([
@@ -42,4 +43,9 @@ Route::middleware(['auth:api', 'role:admin|super_admin'])->prefix('dashboard')->
     Route::get('/genres', [GenreController::class, 'index']);
     Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);
     Route::post('/genres/bulk-delete', [GenreController::class, 'bulkDelete']);
+
+    // movies
+    Route::get('/movies', [MovieController::class, 'index']);
+    Route::delete('/movies/{movie}', [MovieController::class, 'destroy']);
+    Route::post('/movies/bulk-delete', [MovieController::class, 'bulkDelete']);
 });

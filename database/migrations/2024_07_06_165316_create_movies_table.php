@@ -11,10 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genres', function (Blueprint $table) {
+        Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('eid')->unique();
-            $table->string('name');
+            $table->string('title');
+            $table->text('description');
+            $table->string('poster')->nullable();
+            $table->string('banner')->nullable();
+            $table->date('release_date');
+            $table->decimal('vote', 8, 2);
+            $table->bigInteger('vote_count');
             $table->timestamps();
         });
     }
@@ -24,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('movies');
     }
 };

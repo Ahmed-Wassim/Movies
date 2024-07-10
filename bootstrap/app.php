@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Commands\GetGenre;
+use App\Console\Commands\GetMovies;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Auth\AuthenticationException;
@@ -31,4 +32,5 @@ return Application::configure(basePath: dirname(__DIR__))
         });
     })->withCommands([
         GetGenre::class,
+        GetMovies::class
     ])->create();

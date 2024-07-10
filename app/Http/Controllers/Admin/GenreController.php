@@ -12,14 +12,13 @@ class GenreController extends Controller
     use ApiResponses;
     public function index()
     {
-        $genres = Genre::select('id', 'name')->get();
+        $genres = Genre::select('id', 'name')->withCount('movies')->get();
         return $this->successResponse($genres);
     }
 
     public function destroy(Genre $genre)
     {
         $genre->delete();
-
         return $this->successResponse($genre);
     }
 
@@ -27,6 +26,6 @@ class GenreController extends Controller
     {
         $ids = $request->genre_ids;
         Genre::whereIn('id', $ids)->delete();
-        return $this->successResponse("Deleted successfully");
+        return $this->successResponse("Genres Deleted successfully");
     }
 }
