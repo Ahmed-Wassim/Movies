@@ -98,7 +98,6 @@ class GetMovies extends Command
 
             $count++;
         }
-        //
     }
 
     private function attachImages(Movie $movie)

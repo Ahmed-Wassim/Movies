@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\ActorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ActorController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\MovieController;
@@ -55,4 +56,10 @@ Route::middleware(['auth:api', 'role:admin|super_admin'])->prefix('dashboard')->
     Route::get('/movies/{movie}', [MovieController::class, 'show']);
     Route::delete('/movies/{movie}', [MovieController::class, 'destroy']);
     Route::post('/movies/bulk-delete', [MovieController::class, 'bulkDelete']);
+
+    // home page
+    Route::get('/genre_count', [HomeController::class, 'genreCount']);
+    Route::get('/movie_count', [HomeController::class, 'movieCount']);
+    Route::get('/actor_count', [HomeController::class, 'actorCount']);
+    Route::get('/chart', [HomeController::class, 'chart']);
 });
