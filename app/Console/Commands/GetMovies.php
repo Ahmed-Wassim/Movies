@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Type;
 use App\Models\Actor;
 use App\Models\Genre;
+use App\Models\Image;
 use App\Models\Movie;
 use Illuminate\Support\Arr;
 use Illuminate\Console\Command;
@@ -45,7 +46,6 @@ class GetMovies extends Command
 
             $response = Http::get(config('services.tmdb.url') . '/movie/popular?api_key=' . config('services.tmdb.key') . '&language=en&page=' . $i)->json()['results'];
 
-
             foreach ($response as $result) {
                 $movie = Movie::updateOrCreate([
                     'eid' => $result['id'],
@@ -61,6 +61,7 @@ class GetMovies extends Command
 
                 $this->attachGenres($result, $movie);
                 $this->attachActors($movie);
+                $this->attachImages($movie);
             }
         }
 
@@ -72,7 +73,7 @@ class GetMovies extends Command
     private function attachGenres($result, $movie)
     {
         $genreIds = $result['genre_ids'];
-        $genres = Genre::findMany($genreIds, 'eid');
+        $genres = Genre::whereIn('eid', $genreIds)->get();
 
         $movie->genres()->attach($genres);
     }
@@ -98,5 +99,22 @@ class GetMovies extends Command
             $count++;
         }
         //
+    }
+
+    private function attachImages(Movie $movie)
+    {
+        $response = Http::get(config('services.tmdb.url') . '/movie/' . $movie->eid . '/images?api_key=' . config('services.tmdb.key'))->json()['backdrops'];
+
+        $movie->images()->delete();
+        $count = 0;
+        foreach ($response as $index => $result) {
+            if ($count == 12)
+                break;
+            $movie->images()->create([
+                'path' => $result['file_path'],
+            ]);
+
+            $count++;
+        }
     }
 }

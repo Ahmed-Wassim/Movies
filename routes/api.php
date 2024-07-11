@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ActorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -44,8 +45,14 @@ Route::middleware(['auth:api', 'role:admin|super_admin'])->prefix('dashboard')->
     Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);
     Route::post('/genres/bulk-delete', [GenreController::class, 'bulkDelete']);
 
+    // actors
+    Route::get('/actors', [ActorController::class, 'index']);
+    Route::delete('/actors/{actor}', [ActorController::class, 'destroy']);
+    Route::post('/actors/bulk-delete', [ActorController::class, 'bulkDelete']);
+
     // movies
     Route::get('/movies', [MovieController::class, 'index']);
+    Route::get('/movies/{movie}', [MovieController::class, 'show']);
     Route::delete('/movies/{movie}', [MovieController::class, 'destroy']);
     Route::post('/movies/bulk-delete', [MovieController::class, 'bulkDelete']);
 });

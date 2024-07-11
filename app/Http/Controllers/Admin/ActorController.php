@@ -12,7 +12,7 @@ class ActorController extends Controller
     use ApiResponses;
     public function index()
     {
-        $actors = Actor::select('name', 'image')->withCount('movies')->get();
+        $actors = Actor::select('name', 'image')->filter(request(['search']))->withCount('movies')->get();
         return $this->successResponse($actors);
     }
 

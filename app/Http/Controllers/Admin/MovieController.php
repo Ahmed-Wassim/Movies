@@ -17,7 +17,15 @@ class MovieController extends Controller
             ->with('genres')
             ->filter(request(['genre']))
             ->get();
+
         return $this->successResponse($genres);
+    }
+
+    public function show(string $id)
+    {
+        $movie = Movie::select('id', 'title', 'release_date', 'poster', 'banner', 'vote', 'vote_count')->with('genres', 'actors', 'images')->find($id);
+
+        return $this->successResponse($movie);
     }
 
     public function destroy(Movie $movie)

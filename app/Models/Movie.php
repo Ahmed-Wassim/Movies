@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -23,6 +24,8 @@ class Movie extends Model
     ];
 
 
+
+    // scopes
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
@@ -37,6 +40,8 @@ class Movie extends Model
         });
     }
 
+
+    // accessors
     protected function poster(): Attribute
     {
         return Attribute::make(
@@ -51,6 +56,8 @@ class Movie extends Model
         );
     }
 
+
+    // relations
     public function genres(): BelongsToMany
     {
         return $this->belongsToMany(Genre::class, 'genre_movie', 'movie_id', 'genre_id')->select('name');
@@ -59,5 +66,10 @@ class Movie extends Model
     public function actors(): BelongsToMany
     {
         return $this->belongsToMany(Actor::class, 'actor_movie', 'movie_id', 'actor_id');
+    }
+
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

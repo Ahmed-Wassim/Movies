@@ -1,5 +1,7 @@
 <?php
 
+use App\Console\Commands\GetGenre;
+use App\Console\Commands\GetMovies;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
