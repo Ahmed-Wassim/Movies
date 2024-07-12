@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('actor_movie', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('actor_id')->constrained()->cascadeOnDelete()->index();
-            $table->foreignId('movie_id')->constrained()->cascadeOnDelete()->index();
+            $table->foreignId('movie_id')->constrained()->index()->name('actor_movie_movie_id_foreign');
+            $table->foreignId('actor_id')->constrained()->index()->name('actor_movie_actor_id_foreign');
         });
     }
 

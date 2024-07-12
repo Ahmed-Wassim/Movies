@@ -16,7 +16,7 @@ class MovieController extends Controller
         $genres = Movie::select('id', 'title', 'release_date', 'poster', 'banner', 'vote', 'vote_count')
             ->with('genres')
             ->filter(request(['genre']))
-            ->get();
+            ->paginate(10);
 
         return $this->successResponse($genres);
     }

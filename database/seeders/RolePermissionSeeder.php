@@ -23,12 +23,17 @@ class RolePermissionSeeder extends Seeder
             'read movies',
             'update movies',
             'delete movies',
+            'create actor',
+            'read actor',
+            'update actor',
+            'delete actor',
         ]);
 
         $userRole = Role::where('name', 'user')->first();
         $userRole->givePermissionTo([
             'read movies',
             'read genres',
+            'read actor',
         ]);
     }
 }

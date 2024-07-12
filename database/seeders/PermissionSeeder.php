@@ -14,7 +14,7 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('permissions')->truncate();
+        // DB::table('permissions')->truncate();
 
         // policies to users
         Permission::firstOrCreate([
@@ -100,6 +100,24 @@ class PermissionSeeder extends Seeder
 
         Permission::firstOrCreate([
             'name' => 'delete movies',
+        ]);
+
+        // actors
+
+        Permission::firstOrCreate([
+            'name' => 'create actor',
+        ]);
+
+        Permission::firstOrCreate([
+            'name' => 'read actor',
+        ]);
+
+        Permission::firstOrCreate([
+            'name' => 'update actor',
+        ]);
+
+        Permission::firstOrCreate([
+            'name' => 'delete actor',
         ]);
     }
 }

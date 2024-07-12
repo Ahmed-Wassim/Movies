@@ -10,9 +10,14 @@ use App\Http\Controllers\Controller;
 class ActorController extends Controller
 {
     use ApiResponses;
+
+
     public function index()
     {
-        $actors = Actor::select('name', 'image')->filter(request(['search']))->withCount('movies')->get();
+        $actors = Actor::select('name', 'image')->filter(request(['search']))
+            ->withCount('movies')
+            ->paginate(10);
+
         return $this->successResponse($actors);
     }
 

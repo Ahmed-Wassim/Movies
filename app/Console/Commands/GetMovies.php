@@ -33,18 +33,19 @@ class GetMovies extends Command
      */
     public function handle()
     {
-        DB::table('movies')->truncate();
-        DB::table('genre_movie')->truncate();
+        // DB::table('movies')->truncate();
+        // DB::table('genre_movie')->truncate();
         $this->getMovies();
     }
 
     private function getMovies()
     {
-        $pages = 1;
+        $pages = 10;
         $startTime = microtime(true);
         for ($i = 1; $i <= $pages; $i++) {
 
             $response = Http::get(config('services.tmdb.url') . '/movie/popular?api_key=' . config('services.tmdb.key') . '&language=en&page=' . $i)->json()['results'];
+
 
             foreach ($response as $result) {
                 $movie = Movie::updateOrCreate([
@@ -54,7 +55,7 @@ class GetMovies extends Command
                     'description' => $result['overview'],
                     'poster' => $result['poster_path'],
                     'banner' => $result['backdrop_path'],
-                    'release_date' => $result['release_date'],
+                    'release_date' => ($result['release_date'] == '') ? null : $result['release_date'],
                     'vote' => $result['vote_average'],
                     'vote_count' => $result['vote_count'],
                 ]);

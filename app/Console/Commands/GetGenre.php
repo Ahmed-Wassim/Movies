@@ -28,7 +28,7 @@ class GetGenre extends Command
      */
     public function handle()
     {
-        DB::table('genres')->truncate();
+        // DB::table('genres')->truncate();
         $genres = Http::get(config('services.tmdb.url') . '/genre/movie/list?api_key=' . config('services.tmdb.key') . '&language=en-US')->json()['genres'];
         foreach ($genres as $genre) {
             Genre::firstOrCreate([

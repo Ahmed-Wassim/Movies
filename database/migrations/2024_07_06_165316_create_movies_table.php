@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('poster')->nullable();
             $table->string('banner')->nullable();
-            $table->date('release_date');
+            $table->date('release_date')->nullable();
             $table->decimal('vote', 8, 2);
             $table->bigInteger('vote_count');
             $table->timestamps();
