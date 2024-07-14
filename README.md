@@ -7,18 +7,17 @@ This repository contains a Laravel project. Follow the instructions below to dow
 
 Make sure you have the following installed on your system:
 
-- PHP (>= 7.4)
+- PHP (>= 8)
 - Composer
 - Laravel (optional, as Composer can handle it)
 - Git
-- Node.js and npm (for frontend dependencies)
 
 ## Installation
 
 ### 1. Clone the repository
 
 ```sh
-git clone https://github.com/your-username/your-laravel-project.git
+https://github.com/Ahmed-Wassim/Movies.git
 cd your-laravel-project
 ```
 
