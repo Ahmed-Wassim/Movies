@@ -40,7 +40,7 @@ class GetMovies extends Command
 
     private function getMovies()
     {
-        $pages = 10;
+        $pages = 5;
         $startTime = microtime(true);
         for ($i = 1; $i <= $pages; $i++) {
 
