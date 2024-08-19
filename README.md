@@ -1,4 +1,52 @@
+# Project Name: [Movies App]
 
+# Purpose:
+[this app that getting list of movies,related genres, actors, images form imdb api and store it in database and show it in good restfull api]
+
+# Features:
+
+## Admin Dashboard:
+
+Provides a centralized interface for managing the application.
+Includes features for [list of features, e.g., user management, content moderation, analytics].
+## Roles and Permissions:
+
+Implements a granular role-based access control system.
+Allows for fine-grained control over user permissions.
+## Users:
+
+Enables user registration, login, and profile management.
+Provides features for [list of user features, e.g., password reset, email verification].
+## Settings:
+
+Allows for configuration of application settings.
+Includes options for [list of settings, e.g., site title, theme, email settings].
+## Profile:
+
+Enables users to view and edit their personal information.
+Includes features for [list of profile features, e.g., updating profile picture, changing password].
+## Genres and Movies:
+
+Manages a database of genres and movies.
+Allows for creating, editing, and deleting genres and movies.
+## Actors:
+
+Manages a database of actors.
+Allows for creating, editing, and deleting actors.
+## Movie Images:
+
+Handles the uploading and management of movie images.
+Provides features for [list of image features, e.g., cropping, resizing].
+## Statistics:
+
+Displays various statistics related to the application.
+Includes metrics for [list of metrics, e.g., user activity, movie popularity].
+Search Movies:
+
+Allows users to search for movies by title, genre, or actor.
+Provides search results with relevant information and images.
+Postman Collection:
+https://web.postman.co/workspace/Wassim~5660a8b0-7ad4-4073-bef4-fb14f2df99bb/overview?ctx=settings
 # Laravel Project
 
 This repository contains a Laravel project. Follow the instructions below to download, set up, and run the project locally.
